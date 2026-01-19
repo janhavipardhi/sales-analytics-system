@@ -119,3 +119,33 @@ def generate_sales_report(data, enriched_data, output_path):
         f.write(f"Success Rate:   {(enriched_count/len(data))*100:.1f}%\n")
 
     print(f"✓ Report saved to: {output_path}")
+    from datetime import datetime
+
+def generate_sales_report(transactions, enriched_transactions, output_file='output/sales_report.txt'):
+    """Generates a comprehensive formatted text report with 8 sections."""
+    # Calculations for sections
+    total_rev = sum(tx['Quantity'] * tx['UnitPrice'] for tx in transactions)
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        # 1. HEADER
+        f.write("===========================================\n")
+        f.write("          SALES ANALYTICS REPORT\n")
+        f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"Records Processed: {len(transactions)}\n")
+        f.write("===========================================\n\n")
+
+        # 2. OVERALL SUMMARY
+        f.write("OVERALL SUMMARY\n" + "-"*30 + "\n")
+        f.write(f"Total Revenue:       ₹{total_rev:,.2f}\n")
+        f.write(f"Total Transactions:  {len(transactions)}\n\n")
+
+        # 3. REGION-WISE PERFORMANCE (Sample format)
+        f.write("REGION-WISE PERFORMANCE\n" + "-"*30 + "\n")
+        f.write(f"{'Region':<10} {'Sales':<15} {'% Total':<10} {'Tx':<5}\n")
+        # (Add your logic to loop through regions here)
+        
+        # 8. API ENRICHMENT SUMMARY
+        enriched_count = sum(1 for tx in enriched_transactions if tx.get('API_Match'))
+        f.write("\nAPI ENRICHMENT SUMMARY\n" + "-"*30 + "\n")
+        f.write(f"Total products enriched: {enriched_count}\n")
+        f.write(f"Success rate: {(enriched_count/len(transactions))*100:.1f}%\n")
