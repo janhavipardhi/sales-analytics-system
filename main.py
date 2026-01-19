@@ -95,10 +95,14 @@ def main():
 
 if __name__ == "__main__":
     main()
-# Save the enriched data to the data folder as required by the rubric
-import json
-
-with open('data/enriched_sales_data.txt', 'w') as f:
-    for record in enriched:
-        f.write(str(record) + '\n')
-print("✅ Created data/enriched_sales_data.txt")
+# After enriching data...
+    
+    # Requirement: Save enriched data to data folder
+    with open('data/enriched_sales_data.txt', 'w') as f:
+        for item in enriched:
+            f.write(str(item) + '\n')
+            
+    # Requirement: Generate the 8-section report
+    generate_final_report(valid_data, enriched, total_parsed, total_invalid)
+    
+    print("✅ All files generated. Ready for GitHub!")
