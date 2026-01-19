@@ -1,0 +1,4 @@
+TransactionID|Date|ProductID|ProductName|Quantity|UnitPrice|CustomerID|Region
+T001|2024-12-01|P101|Laptop|2|45000|C001|North
+T002|2024-12-01|P102|Mouse,Wireless|5|500|C002|South
+T003|2024-12-02|P103|Keyboard|3|1,500|C003|East
