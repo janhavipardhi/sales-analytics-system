@@ -60,3 +60,38 @@ def main():
 
 if __name__ == "__main__":
     main()
+import sys
+from utils.file_handler import read_sales_data
+from utils.data_processor import parse_transactions, validate_and_filter, generate_sales_report
+from utils.api_handler import fetch_all_products, create_product_mapping, enrich_sales_data
+
+def main():
+    try:
+        print("=== SALES ANALYTICS SYSTEM ===")
+        
+        # [1/10] Reading and [2/10] Parsing
+        raw = read_sales_data('data/sales_data.txt')
+        parsed = parse_transactions(raw)
+        
+        # [3/10] Filter Options (User Interaction)
+        # Requirement: Ask user if they want to filter
+        filter_choice = input("Do you want to filter data? (y/n): ").lower()
+        # (Add filtering logic if 'y')
+        
+        # [4/10] Validating and [6/10] Fetching API
+        valid = validate_and_filter(parsed)
+        api_raw = fetch_all_products()
+        mapping = create_product_mapping(api_raw)
+        
+        # [7/10] Enriching and [9/10] Generating Report
+        enriched = enrich_sales_data(valid, mapping)
+        generate_sales_report(valid, enriched)
+        
+        print("\n[10/10] Process Complete!")
+        
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1) # Don't let program crash on errors
+
+if __name__ == "__main__":
+    main()
