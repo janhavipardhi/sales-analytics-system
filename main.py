@@ -95,3 +95,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+# Save the enriched data to the data folder as required by the rubric
+import json
+
+with open('data/enriched_sales_data.txt', 'w') as f:
+    for record in enriched:
+        f.write(str(record) + '\n')
+print("✅ Created data/enriched_sales_data.txt")
